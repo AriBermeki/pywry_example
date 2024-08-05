@@ -226,8 +226,8 @@ pub struct PyFrame {
 
 impl PyFrame {
     pub(crate) fn new(
-        window: PyWindowFrame,
-        webview: PyWebView,
+        window: &PyWindowFrame,
+        webview: &PyWebView,
         _web_context: Option<bool>,
     ) -> PyFrame {
         let event_loop = EventLoopBuilder::<PythonEventAPI>::with_user_event().build();
@@ -354,10 +354,10 @@ fn main() {
 
 
 
-    let py_frame = PyFrame::new(window_frame, webview_frame, None);
+    let py_frame = PyFrame::new(&window_frame, &webview_frame, None);
     py_frame.evaluate_script("alert('Hallo from Rust')");
     py_frame.set_title("Hallo JS from Rust");
-    py_frame.run(backend_api);
+    py_frame.run(&backend_api);
 }
 
 ```
